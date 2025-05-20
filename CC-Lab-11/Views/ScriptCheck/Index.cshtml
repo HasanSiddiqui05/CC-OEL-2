@@ -1,0 +1,30 @@
+﻿@model CC_Lab_11.Models.ScriptCheckModel
+@{
+    ViewBag.Title = "Script Check";
+}
+
+<center>
+    <h2>Malicious Script Detector</h2>
+
+    @if (string.IsNullOrEmpty(Model.Result))
+    {
+        <div>Enter a script to check if it is malicious.</div>
+    }
+    else
+    {
+        <div class="alert @(Model.Result.Contains("safe") ? "alert-success" : "alert-danger")">
+            @Model.Result
+        </div>
+    }
+
+    <div>
+        @using (Html.BeginForm("CheckScript", "ScriptCheck", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label for="InputScript">Enter Script:</label>
+                @Html.TextAreaFor(m => m.InputScript, new { @class = "form-control", rows = 5 })
+            </div>
+            <input type="submit" value="Check Script" class="btn btn-primary" />
+        }
+    </div>
+</center>
